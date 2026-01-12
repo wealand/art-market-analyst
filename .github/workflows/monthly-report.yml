@@ -1,0 +1,33 @@
+
+name: Generate Monthly Art Report
+
+on:
+  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+  schedule:
+    # Runs at 00:00 on the 1st day of every month
+    - cron: '0 0 1 * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Run the script to generate the report
+        run: python art_report.py
+
+      - name: Commit and push the updated report
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Automated monthly report update"
+          file_pattern: report.md
+          commit_user_name: "GitHub Actions"
+          commit_user_email: "actions@github.com"
+          commit_author: "GitHub Actions <actions@github.com>"
