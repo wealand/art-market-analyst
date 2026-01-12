@@ -75,7 +75,7 @@ def save_report_as_markdown(title, content):
     The filename is based on the report title.
     """
     # Create a filename from the title, e.g., "Monthly Art Market Report" -> "monthly-art-market-report.md"
-    filename = "report.md"
+    filename = "index.md"
     with open(filename, 'w') as f:
         f.write(content)
     print(f"Successfully saved report to {filename}")
